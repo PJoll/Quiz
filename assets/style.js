@@ -1,5 +1,5 @@
 var startButton = document.getElementById("Start");
-var timerElement = document.querySelector(".timer-count");
+var timerElement = document.getElementById("timer-text");
 var timer;
 var timerCount;
 var resultList = [];
@@ -28,7 +28,18 @@ var myQuestions = [
         userAnswer: "-1",
     }
 ]
+var timeLeft = 30
+var timer
 var currentQuestion = 0
+function updateTime() {
+    timeLeft--
+    if (timeLeft < 0) {
+        quizEnded()
+    } else {
+        timerElement.innerHTML = timeLeft
+        timer = setTimeout(updateTime, 1000)
+    }
+}
 function renderQuestion() {
     var html = "<div>"
     html += "<p>" + myQuestions[currentQuestion].question + "</p>"
@@ -45,18 +56,55 @@ function renderQuestion() {
     quizContainer.innerHTML = html
     setTimeout(function () {
         var inputs = quizContainer.querySelectorAll("input")
-        for(var input of inputs){
+        for (var input of inputs) {
             input.addEventListener("change", checkQuestion)
         }
     }, 10)
 }
 
-function checkQuestion() {
-    currentQuestion++
-    renderQuestion()
-}
-startButton.addEventListener("click", renderQuestion)
+function checkQuestion(e) {
+    var value = e.target.value
+    myQuestions[currentQuestion].userAnswer = value
+    if (
+        myQuestions[currentQuestion].userAnswer != myQuestions[currentQuestion].correctAnswer
 
+    ) {
+        timeLeft -= 10
+    }
+    currentQuestion++
+    if (
+        currentQuestion == myQuestions.length
+    ) {
+        quizEnded()
+    } else {
+        renderQuestion()
+    }
+
+}
+function quizEnded() {
+    clearTimeout(timer)
+    var score = 0
+    for (var question of myQuestions) {
+        if (question.userAnswer == question.correctAnswer) {
+            score++
+        }
+    }
+    quizContainer.innerHTML = ""
+    document.getElementById("Final-Score").innerHTML = score
+    document.getElementById("results").style.display = "block"
+
+}
+function displayHighscores(){
+var initials = document.getElementById("initials-input").value 
+document.getElementById("results").style.display = "none"
+}
+//store to local storage
+startButton.addEventListener("click", function () {
+    startButton.style.display = "none"
+    updateTime()
+    renderQuestion()
+})
+document.getElementById("Submit-Quiz", displayHighscores)
 // function generateQuiz() {
 
 //     function showQuestions(questions, quizContainer) {
