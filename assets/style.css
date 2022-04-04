@@ -1,13 +1,35 @@
+#quiz {
+    display: flex;
+    flex-direction: column;
+    word-wrap: break-word;
+    text-align: center;
+    max-width: 700px;
+    margin: 10, auto;
+    color: #2e287a;
+    font-family: sans-serif;
+}
+
 label {
     display: block;
     width: 100%;
 }
+
 section {
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    text-decoration: aqua;
 }
+
 #results {
     display: none;
+}
+
+.timer-text {
+
+    height: 240px;
+    padding: 30px;
+    text-align: center;
+    color: blue;
 }

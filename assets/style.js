@@ -1,5 +1,6 @@
 var startButton = document.getElementById("Start");
 var timerElement = document.getElementById("timer-text");
+var submitButton = document.getElementById("Submit-Quiz")
 var timer;
 var timerCount;
 var resultList = [];
