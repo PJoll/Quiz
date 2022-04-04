@@ -1,3 +1,4 @@
+// Declare variables
 var startButton = document.getElementById("Start");
 var timerElement = document.getElementById("timer-text");
 var submitButton = document.getElementById("Submit-Quiz")
@@ -58,6 +59,7 @@ var myQuestions = [
         userAnswer: "-1",
     },
 ]
+// setup timer
 var timeLeft = 30
 var timer
 var currentQuestion = 0
@@ -70,6 +72,7 @@ function updateTime() {
         timer = setTimeout(updateTime, 1000)
     }
 }
+//set up questions
 function renderQuestion() {
     var html = "<div>"
     html += "<p>" + myQuestions[currentQuestion].question + "</p>"
@@ -111,6 +114,7 @@ function checkQuestion(e) {
     }
 
 }
+// end the quiz
 function quizEnded() {
     clearTimeout(timer)
     var score = 0
